@@ -1,11 +1,32 @@
 <div class="hero-section">
-  
+  <!-- Hamburger Menu for Mobile -->
+  <div>
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Side Navigation Menu for Mobile -->
+    <div id="sideNav" class="side-nav">
+      <a href="javascript:void(0)" class="closebtn" id="closeBtn">&times;</a>
+      <a href="#" id="aboutLink">About</a>
+      <a href="#" id="contributeLink">Contribute</a>
+      <a href="#" id="buildersNoteLink">Builder's Note</a>
+      <a href="#" id="sponsorLink">Sponsor</a>
+      <a href="#" id="darkModeToggleMobile">
+        <i class="fas fa-moon" id="darkModeIcon"></i> 
+        <span id="darkModeTextMobile">Dark Mode</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
   <div class="search-bar position-relative" style="padding-bottom: 30px;">
     <i class="fas fa-search"></i>
-    <input  autocomplete="off" type="text" id="searchInput" class="form-control" placeholder="Search for keywords..." />
+    <input autocomplete="off" type="text" id="searchInput" class="form-control" placeholder="Search for keywords..." />
     <div id="autocomplete-list"></div> 
   </div>
 
+  <!-- Desktop Buttons -->
   <div class="buttons" id="heroButtons">
     <button class="button" id="aboutButton">
       <i class="fas fa-user" style="padding-right: 10px;"></i> About;
@@ -14,6 +35,7 @@
       <i class="fab fa-github" style="padding-right: 10px;"></i> Contribute;
     </button>
 
+    <!-- Desktop Dark Mode Toggle -->
     <button class="button" id="darkModeToggle">
       <i class="fas fa-moon" style="padding-right: 10px;"></i><span id="darkModeText"> Dark Mode;</span>
     </button>
@@ -27,6 +49,7 @@
     </button>
   </div>
   
+  <!-- Hero Text -->
   <div class="hero-title" id="heroTitle" style="padding-top: 50px;">Dev Encyclopedia;</div>
   <div class="hero-paragraph" id="heroParagraph">Find out what that Sr. Developer is talking about.</div>
 </div>

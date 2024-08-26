@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', async function() {
+    // Initialize Event Listeners for Buttons
     document.getElementById('aboutButton').addEventListener('click', showAbout);
     document.getElementById('builderButton').addEventListener('click', showBuilders);
     document.getElementById('sponsorButton').addEventListener('click', showSponsors);
     document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+    document.getElementById('darkModeToggleMobile').addEventListener('click', toggleDarkMode);
 
     const searchInput = document.getElementById('searchInput');
-
     let currentFocus = -1; // Track the currently focused item in the autocomplete list
 
     // Fetch JSON file names from the API
@@ -24,10 +25,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     const keywords = await fetchJsonTitles();
-    console.log('Keywords for autocomplete:', keywords);
 
     const autocompleteList = document.getElementById('autocomplete-list');
-    const maxItems = 5;
+    const maxItems = 6;
 
     searchInput.addEventListener('input', function() {
         const input = this.value;
@@ -74,6 +74,77 @@ document.addEventListener('DOMContentLoaded', async function() {
             autocompleteList.style.overflowY = '';
         }
     });
+
+    // Side Navigation Menu
+    const sideNav = document.getElementById("sideNav");
+    const menuToggle = document.getElementById("menuToggle");
+    const closeBtn = document.getElementById("closeBtn");
+
+    const aboutLink = document.getElementById('aboutLink');
+    const contributeLink = document.getElementById('contributeLink');
+    const buildersNoteLink = document.getElementById('buildersNoteLink');
+    const sponsorLink = document.getElementById('sponsorLink');
+    const darkModeIcon = document.getElementById('darkModeIcon');
+    const darkModeTextMobile = document.getElementById('darkModeTextMobile');
+    const body = document.body;
+
+    menuToggle.addEventListener("click", function() {
+        sideNav.style.width = "250px";
+    });
+
+    closeBtn.addEventListener("click", function() {
+        sideNav.style.width = "0";
+    });
+
+    aboutLink.addEventListener('click', showAbout);
+    contributeLink.addEventListener('click', function() {
+        window.open('https://github.com/Buzzpy/Programming-Simplified', '_blank');
+    });
+    buildersNoteLink.addEventListener('click', showBuilders);
+    sponsorLink.addEventListener('click', showSponsors);
+
+    // Universal Toggle Function for Dark Mode
+    function toggleDarkMode() {
+        body.classList.toggle('dark-mode');
+        body.classList.toggle('light-mode');
+
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('darkMode', 'enabled');
+            if (window.innerWidth >= 768) {
+                document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-sun" style="padding-right: 10px;"></i><span id="darkModeText"> Light Mode;</span>';
+            } else {
+                darkModeIcon.classList.replace('fa-moon', 'fa-sun');
+                darkModeTextMobile.textContent = 'Light Mode';
+            }
+        } else {
+            localStorage.setItem('darkMode', 'disabled');
+            if (window.innerWidth >= 768) {
+                document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-moon" style="padding-right: 10px;"></i><span id="darkModeText"> Dark Mode;</span>';
+            } else {
+                darkModeIcon.classList.replace('fa-sun', 'fa-moon');
+                darkModeTextMobile.textContent = 'Dark Mode';
+            }
+        }
+    }
+
+    // On page load, apply the correct mode
+    window.onload = function() {
+        const darkMode = localStorage.getItem('darkMode');
+        
+        if (darkMode === 'enabled') {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+            darkModeIcon.classList.replace('fa-moon', 'fa-sun');
+            darkModeTextMobile.textContent = 'Light Mode';
+            document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-sun" style="padding-right: 10px;"></i><span id="darkModeText"> Light Mode;</span>';
+        } else {
+            body.classList.add('light-mode');
+            body.classList.remove('dark-mode');
+            darkModeIcon.classList.replace('fa-sun', 'fa-moon');
+            darkModeTextMobile.textContent = 'Dark Mode';
+            document.getElementById('darkModeToggle').innerHTML = '<i class="fas fa-moon" style="padding-right: 10px;"></i><span id="darkModeText"> Dark Mode;</span>';
+        }
+    };
 
     // Add keyboard navigation for the autocomplete
     searchInput.addEventListener('keydown', function(e) {
@@ -129,7 +200,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         }
     }
-
     function closeModal(event) {
         const modal = document.getElementById('modal');
         if (event.target == modal) {
@@ -162,8 +232,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         const modalBody = document.getElementById('modal-body');
         modalBody.innerHTML = `
         <h3>A Note from the Builder</h3>
-        <p>If you find a flaw, love to sponsor or need help with learning something, my inbox is open: <span>-></span> <a href="mailto:chenuli@devpedia.dev">chenuli@devpedia.dev</a></p>
-        <p>- I am a Python Developer specializing in backend so my <strong>web design skills</strong> can be <strong>terrible.</strong></p>
+        <p>If you find a flaw, love to sponsor or need help with learning something, my inbox is open: <span>-></span> <a href="mailto:buzzpy123@gmail.com">buzzpy123@gmail.com</a></p>
+        <p>- I am a Python Developer specializing in backend so my <strong>web design skills</strong> are <strong>terrible.</strong></p>
         <p>- This project was built in a month, unlike Rome which took years to build. Which means this is in the early stages of development, so why not <strong>fork, star, and contribute?</strong></p>
       `;
         modal.style.display = 'block';
@@ -198,30 +268,30 @@ document.addEventListener('DOMContentLoaded', async function() {
         modal.style.display = 'block';
     }
 
-    function toggleDarkMode() {
-      const body = document.body;
-      const toggleButton = document.getElementById('darkModeToggle');
+    // function toggleDarkMode() {
+    //   const body = document.body;
+    //   const toggleButton = document.getElementById('darkModeToggle');
       
-      body.classList.toggle('dark-mode');
+    //   body.classList.toggle('dark-mode');
       
-      if (body.classList.contains('dark-mode')) {
-          localStorage.setItem('darkMode', 'enabled');
-          toggleButton.innerHTML = '<i class="fas fa-sun" style="padding-right: 10px;"></i><span id="darkModeText"> Light Mode;</span>';
-      } else {
-          localStorage.setItem('darkMode', 'disabled');
-          toggleButton.innerHTML = '<i class="fas fa-moon" style="padding-right: 10px;"></i><span id="darkModeText"> Dark Mode;</span>';
-      }
-    }
+    //   if (body.classList.contains('dark-mode')) {
+    //       localStorage.setItem('darkMode', 'enabled');
+    //       toggleButton.innerHTML = '<i class="fas fa-sun" style="padding-right: 10px;"></i><span id="darkModeText"> Light Mode;</span>';
+    //   } else {
+    //       localStorage.setItem('darkMode', 'disabled');
+    //       toggleButton.innerHTML = '<i class="fas fa-moon" style="padding-right: 10px;"></i><span id="darkModeText"> Dark Mode;</span>';
+    //   }
+    // }
     
-    window.onload = function() {
-      const darkMode = localStorage.getItem('darkMode');
-      const toggleButton = document.getElementById('darkModeToggle');
+    // window.onload = function() {
+    //   const darkMode = localStorage.getItem('darkMode');
+    //   const toggleButton = document.getElementById('darkModeToggle');
       
-      if (darkMode === 'enabled') {
-          document.body.classList.add('dark-mode');
-          toggleButton.innerHTML = '<i class="fas fa-sun" style="padding-right: 10px;"></i><span id="darkModeText"> Light Mode;</span>';
-      } else {
-          toggleButton.innerHTML = '<i class="fas fa-moon" style="padding-right: 10px;"></i><span id="darkModeText"> Dark Mode;</span>';
-      }
-    };
+    //   if (darkMode === 'enabled') {
+    //       document.body.classList.add('dark-mode');
+    //       toggleButton.innerHTML = '<i class="fas fa-sun" style="padding-right: 10px;"></i><span id="darkModeText"> Light Mode;</span>';
+    //   } else {
+    //       toggleButton.innerHTML = '<i class="fas fa-moon" style="padding-right: 10px;"></i><span id="darkModeText"> Dark Mode;</span>';
+    //   }
+    // };
 });

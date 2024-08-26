@@ -150,18 +150,96 @@ body {
 }
 
 .hero-title {
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 
 .hero-paragraph {
-  font-size: 20px;
+  font-size: 1.25rem;
   margin: 20px 0;
 }
 
 .autocomplete-item.active {
   background-color: #444d46; /* Green background */
   color: white; /* White text color */
+}
+
+/* Side navigation menu */
+.side-nav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.side-nav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.side-nav a:hover {
+  color: #f1f1f1;
+}
+
+.side-nav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Default hamburger button style (for dark mode) */
+.menu-toggle {
+  font-size: 30px;
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  z-index: 1;
+  background: none;
+  border: none;
+  color: black; /* Default white color (for dark mode) */
+  display: none; /* Initially hidden */
+}
+
+/* Ensure the color changes in light mode */
+@media screen and (max-width: 768px) {
+  body.light-mode .menu-toggle {
+    color: #000; /* Force black color for light mode */
+  }
+
+  body.dark-mode .menu-toggle {
+    color: #fff; /* Force white color for dark mode */
+  }
+
+  .hero-title {
+    font-size: 2rem; /* Smaller font size for mobile */
+  }
+
+  .hero-paragraph {
+    font-size: 1rem; /* Smaller font size for mobile */
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+/* Hide hamburger menu on exactly 768px (iPad Mini) */
+@media screen and (min-width: 768px) and (max-width: 1030px) {
+  .menu-toggle {
+    display: none; /* Hide the hamburger button for iPad Mini */
+  }
 }
 
 .buttons {
@@ -269,10 +347,28 @@ body.dark-mode input[type="text"]::placeholder {
   opacity: 1; /* Ensures the placeholder is fully visible */
 }
 
+.hero-section .buttons {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .hero-section .buttons {
+    display: flex; /* or inline-flex/block, depending on your layout */
+  }
+}
+
 .search-bar {
   position: relative;
   display: inline-block;
+  margin-top: 20px;
   font-family: 'JetBrains Mono', monospace;
+}
+
+/* Ensure the margin is consistent across all screen sizes, or use media queries if needed */
+@media screen and (min-width: 768px) {
+  .search-bar {
+    margin-top: 30px; /* Adjust for desktop if needed */
+  }
 }
 
 .search-bar input {
