@@ -214,6 +214,7 @@ body {
 
 /* Ensure the color changes in light mode */
 @media screen and (max-width: 768px) {
+  
   body.light-mode .menu-toggle {
     color: #000; /* Force black color for light mode */
   }
